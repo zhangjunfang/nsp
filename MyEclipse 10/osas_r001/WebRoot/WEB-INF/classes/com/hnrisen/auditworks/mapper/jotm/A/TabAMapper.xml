@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- -->
+<mapper namespace="com.hnrisen.auditworks.mapper.jotm.A.TabAMapper">
+	<resultMap id="result_base" type="com.hnrisen.auditworks.jotm.domain.TabA">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+	</resultMap>
+
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.hnrisen.auditworks.jotm.domain.TabA">
+		insert into tab_a(
+		id,
+		name,
+		address
+		) values (
+		#{id},
+		#{name},
+		#{address}
+		)
+	</insert>
+	<!-- 更新 -->
+	<update id="update" parameterType="com.hnrisen.auditworks.jotm.domain.TabA">
+		update tab_a set
+		id = #{id},
+		name = #{name},
+		address = #{address}
+		where id = #{id}
+	</update>
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="long">
+		delete from tab_a
+		where id
+		= #{value}
+	</delete>
+	<!-- 根据ID获取 -->
+	<select id="findById" parameterType="long" resultMap="result_base">
+		select *
+		from tab_a
+		where id = #{value}
+	</select>
+
+</mapper>

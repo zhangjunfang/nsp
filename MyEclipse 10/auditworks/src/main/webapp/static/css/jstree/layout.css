@@ -1,0 +1,132 @@
+body {
+    background-image: url('top.jpg');
+    background-repeat: repeat-x;
+    background-color: #FEFEFE;
+    font-family: "Microsoft YaHei", "宋体", "Segoe UI", sans-serif;
+    font-size: 80%;
+    margin: 0em;
+    padding: 0em;
+    width: 64em;
+}
+.title,
+.expandsection,
+.tasksection, 
+.expando,
+.icon,
+.help,
+.close
+{
+    position: relative;
+}
+.title 
+{
+    font: 445% normal;
+    color: #d8e2f4;
+    left: 4px;
+    margin:0; 
+    padding-bottom: .2em;
+}
+.tasksection,
+.expandsection {
+    padding-bottom: 10px;
+}
+.column1
+{
+    float: left;
+    width: 29em; 
+    padding-right: 1em;
+}
+.column2 
+{
+ float: left;
+ width: 30em;
+}
+.mainContent,
+.footer {
+ padding-left: 38px;
+        padding-right: 0px;
+}
+.footer {
+ width:60em;
+ float: left;
+ padding-top: 5em;
+}
+.expandsection {
+    padding-top: 10px;
+}
+.expando {
+    top: 3px; 
+    padding-left: 3px;
+    border: none;
+}
+.close,
+.icon,
+.help {
+    top: 3px; 
+    margin-right: 5px;
+    border: none;
+    text-decoration: none;
+    outline: none;
+}
+.description,
+.textcount
+{
+    color: #505050;
+}
+.tasks {
+    font-size: 130%;
+    line-height:160%;
+    color: #549c00;
+    text-decoration: none;
+    outline: none;
+}
+hr {
+    margin: 0em 1.5em 1em 0em;
+    height: 1px;
+    border-top: 1px #C0C0C0 solid;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+a {
+    color: #4F81BD;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.clipboard {
+    font-style: italic;
+    white-space: nowrap; 
+    overflow: hidden; 
+    height: 2em;
+}
+.clipboardViewer
+{
+    float: left;
+    vertical-align: top;
+    width: 26em;
+}
+.clipboardViewerOpen
+{
+    float: left;
+    vertical-align: top;
+    width: 40em;
+}
+.activitiesList
+{
+    float: left;
+    vertical-align: top;
+    width: 26em;
+    padding-top: 1em;
+}
+.textcount {
+ font-size: x-small;
+}            
+#recentlyClosedTabsExpando, 
+#startInPrivateBrowsingClick, 
+#activitiesExpando {
+    color: #549c00;
+}
+            
+

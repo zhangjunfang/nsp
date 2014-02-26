@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.newcapec.bus.dao.emp.EmpDao">
+
+	<sql id="fields_name">
+		t.id, t.empId, t.empCode, t.empName, t.empPwd, t.empPos,
+		t.empEmail, t.dptCode, t.idCardNo, t.certificateId,
+		t.telPhoneNum,
+		t.sex, t.postId, t.address, t.nation, t.incomeDate, t.userId,
+		t.loginSt, t.roleCode, t.isSystemUser,
+		t.cashCardType, t.saleCardType,
+		t.privilegeLogon, t.yearCheck, t.checkBeginDay, t.checkEndDay,
+		t.themes, t.ver, t.areaId, t.status, t.exceptiveEmp, t.isDelete,
+		t.customerUnitCode, t.bankCode, t.bankCardNo, t.language,
+		t.deleteDate,
+		t.accountType
+	</sql>
+
+	<sql id="tab_name">
+		base_emp t
+	</sql>
+
+	<sql id="where_sql">
+		<where>
+			<if test="s.id!=null and s.id!=0"> AND t.id = #{s.id} </if>
+			<if test="s.empName!=null and s.empName!=''"> AND t.empName like '%'|| #{s.empName} ||'%'</if>
+			<if test="s.customerUnitCode!=null and s.customerUnitCode!=''"> AND t.customerUnitCode = #{s.customerUnitCode} </if>
+			<if test="s.isDelete!=null"> AND t.isDelete = #{s.isDelete} </if>
+
+			<if test="s.empCode!=null and s.empCode!=''"> AND t.empCode = #{s.empCode} </if>
+			<if test="s.idCardNo!=null and s.idCardNo!=''"> AND t.idCardNo = #{s.idCardNo} </if>
+			<if test="s.userId!=null and s.userId!=''"> AND t.userId = #{s.userId} </if>
+
+			<if test="s.appendSql!=null and s.appendSql!=''"> AND ${s.appendSql} </if>
+
+			<if test="s.ids!=null">
+				AND t.id in <foreach collection="s.ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+			</if>
+		</where>
+	</sql>
+
+
+	<sql id="page_sql_1">
+		SELECT * FROM (
+		SELECT t1.*, ROWNUM rn
+		FROM (
+	</sql>
+
+	<sql id="page_sql_2">
+		) t1
+		WHERE ROWNUM &lt;#{page.current}*#{page.pageSize}+1
+		)
+		WHERE
+		rn&gt;(#{page.current}-1)*#{page.pageSize}
+	</sql>
+
+
+
+	<select id="queryAll" resultType="net.newcapec.bus.service.bo.Emp">
+		<include refid="page_sql_1" />
+		SELECT
+		<include refid="fields_name" />
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+		order by t.id desc
+		<include refid="page_sql_2" />
+	</select>
+
+	<select id="queryAllCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+	</select>
+
+	<select id="queryById" resultType="net.newcapec.bus.service.bo.Emp">
+		SELECT
+		<include refid="fields_name" />
+		FROM
+		<include refid="tab_name" />
+		WHERE
+		t.empCode = #{s.empCode} AND t.customerUnitCode =
+		#{s.customerUnitCode}
+	</select>
+
+
+
+	<insert id="insert" useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tab_name" />
+		(empId, empCode, empName, empPwd, empPos,
+		empEmail, dptCode, idCardNo,
+		certificateId,
+		telPhoneNum,
+		sex, postId, address, nation, incomeDate,
+		userId,
+		loginSt, roleCode, isSystemUser,
+		cashCardType, saleCardType,
+		privilegeLogon, yearCheck, checkBeginDay, checkEndDay,
+		themes, ver,
+		areaId, status, exceptiveEmp, isDelete,
+		customerUnitCode, bankCode,
+		bankCardNo, language,
+		deleteDate,
+		accountType)
+		VALUES
+		(#{p.empId},
+		#{p.empCode}, #{p.empName}, #{p.empPwd}, #{p.empPos},
+		#{p.empEmail},
+		#{p.dptCode}, #{p.idCardNo}, #{p.certificateId},
+		#{p.telPhoneNum},
+		#{p.sex}, #{p.postId}, #{p.address}, #{p.nation},
+		to_date(#{p.incomeDate},'yyyy-MM-dd HH24:mi:ss'),
+		#{p.userId},
+		#{p.loginSt}, #{p.roleCode},
+		#{p.isSystemUser},
+		#{p.cashCardType},
+		#{p.saleCardType},
+		#{p.privilegeLogon},
+		#{p.yearCheck},
+		to_date(#{p.checkBeginDay},'yyyy-MM-dd HH24:mi:ss'),
+		to_date(#{p.checkEndDay},'yyyy-MM-dd HH24:mi:ss'),
+		#{p.themes},
+		#{p.ver}, #{p.areaId},
+		#{p.status}, #{p.exceptiveEmp}, #{p.isDelete},
+		#{p.customerUnitCode},
+		#{p.bankCode}, #{p.bankCardNo}, #{p.language},
+		to_date(#{p.deleteDate},'yyyy-MM-dd HH24:mi:ss'),
+		#{p.accountType})
+	</insert>
+
+
+	<update id="update">
+		UPDATE
+		<include refid="tab_name" />
+		<set>
+			<if test="p.empId!=null and p.empId>0"> t.empId = #{p.empId} </if>
+			<if test="p.empPwd!=null and p.empPwd!=''"> t.empPwd = #{p.empPwd} </if>
+		</set>
+		<include refid="where_sql" />
+	</update>
+
+	<delete id="delete">
+		DELETE
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+	</delete>
+
+</mapper>
+
+
+

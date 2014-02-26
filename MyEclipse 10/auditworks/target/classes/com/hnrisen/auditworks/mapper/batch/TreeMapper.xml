@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnrisen.auditworks.mapper.batch.TreeMapper">
+	<cache />
+	<insert id="insertTree" parameterType="Tree">
+		INSERT INTO cap_department(DEPARTMENT_ID, PARENT_ID, DEPARTMENT_NAME) VALUES (#{id}, #{pId}, #{name})
+	</insert>
+
+
+	<update id="updateTree" parameterType="Tree">
+		UPDATE cap_department SET DEPARTMENT_ID = #{id}, PARENT_ID = #{pId}, DEPARTMENT_NAME = #{name} WHERE DEPARTMENT_ID = #{id}
+	</update>
+
+	<delete id="deleteTree" parameterType="Tree">
+		DELETE FROM cap_department WHERE DEPARTMENT_ID = #{id}
+	</delete>
+
+</mapper>

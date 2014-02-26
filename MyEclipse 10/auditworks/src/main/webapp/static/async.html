@@ -1,0 +1,50 @@
+
+<html>
+<head>
+<title>ZTREE DEMO - Async</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/auditworks/static/css/zTreeStyle/demo.css">
+<link rel="stylesheet" type="text/css"
+	href="/auditworks/static/css/zTreeStyle/zTreeStyle.css">
+<script type="text/javascript"
+	src="/auditworks/static/js/jquery-latest.js"></script>
+<script type="text/javascript"
+	src="/auditworks/static/js/jquery.ztree.core-3.1.js"></script>
+
+<script type="text/javascript">
+	var setting = {
+		async : {
+			enable : true,
+			url : "/auditworks/asyncData/getNodes.jsp",
+			//autoParam : [ "id", "name=n", "level=lv" ],
+			otherParam : {
+				"otherParam" : "zTreeAsyncTest"
+			},
+			dataFilter : filter
+		}
+	};
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes)
+			return null;
+		for ( var i = 0, l = childNodes.length; i < l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	}
+
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"), setting);
+	});
+</script>
+</head>
+
+<body>
+	<h1>动态树加载</h1>
+	<div class="content_wrap">
+		<div class="zTreeDemoBackground left">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+	</div>
+</body>
+</html>

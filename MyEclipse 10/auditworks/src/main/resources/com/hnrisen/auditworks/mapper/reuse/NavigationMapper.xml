@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hnrisen.auditworks.mapper.reuse.NavigationMapper">
+
+	<cache />
+	<select id="selectOne" parameterType="Navigation" resultType="Navigation">
+		SELECT module_type_id,parent_id,module_type_name,remark,order_id
+		FROM cap_module_type
+		WHERE module_type_id = #{module_type_id}
+	</select>
+	
+	<select id="selectAll" parameterType="Navigation" resultType="Navigation">
+		SELECT module_type_id,parent_id,module_type_name,remark,order_id
+		FROM cap_module_type
+	</select>	
+
+	<insert id="insert" parameterType="Navigation">
+		INSERT INTO cap_module_type
+		  (module_type_id,parent_id,module_type_name,remark,order_id)
+		VALUES
+		  (#{module_type_id}, #{parent_id}, #{module_type_name}, #{remark}, #{order_id})
+	</insert>
+
+	<update id="update" parameterType="Navigation">
+		UPDATE cap_module_type
+		SET module_type_id = #{module_type_id},
+			parent_id = #{parent_id},
+			module_type_name = #{module_type_name},			
+			remark = #{remark},
+			order_id = #{order_id}			
+		WHERE module_type_id = #{module_type_id}
+	</update>
+
+	<delete id="delete" parameterType="Navigation">
+		DELETE FROM cap_module_type WHERE module_type_id = #{module_type_id}
+	</delete>
+
+</mapper>

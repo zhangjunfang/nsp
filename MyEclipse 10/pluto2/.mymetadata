@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="pluto2"
+  id="myeclipse.1378523904453"
+  context-root="/pluto2"
+  j2ee-spec="6.0"
+  archive="pluto2.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

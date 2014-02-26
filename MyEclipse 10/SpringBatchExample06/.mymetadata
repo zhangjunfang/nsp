@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SpringBatchExample06"
+  id="myeclipse.1377842146578"
+  context-root="/SpringBatchExample06"
+  j2ee-spec="6.0"
+  archive="SpringBatchExample06.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

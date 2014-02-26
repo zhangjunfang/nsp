@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="roptest01"
+  id="myeclipse.1375253365562"
+  context-root="/roptest01.ocean"
+  j2ee-spec="1.7"
+  archive="roptest01.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="URACS"
+  id="myeclipse.1378088181687"
+  context-root="/URACS.Web"
+  j2ee-spec="1.7"
+  archive="URACS.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

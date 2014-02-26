@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+<!-- load annotation object -->
+<context:component-scan base-package="com.hnrisen.auditworks.service">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+
+	<!-- ==== mybatis sessionFactory ==== -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.hnrisen.auditworks.domain" />
+	</bean>
+
+	<!-- ==== mybatis sqlSessionTemplate ==== -->
+	<!-- Execute Type REUSE (default) -->
+	<bean id="sqlSessionReuseTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+	<!-- Execute Type BATCH (default) -->
+	<bean id="sqlSessionBatchTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
+        <property name="basePackage" value="com.hnrisen.auditworks.mapper.reuse"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionReuseTemplate"/>
+    </bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.hnrisen.auditworks.mapper.batch"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionBatchTemplate"/>
+    </bean>
+
+	<!-- ==== mybatis sessionFactory for aim ==== -->
+	<bean id="sqlSessionFactoryAim" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceAim" />
+		<property name="typeAliasesPackage" value="com.hnrisen.auditworks.domain" />
+	</bean>
+
+
+
+	<!-- ==== mybatis sqlSessionTemplate for aim ==== -->
+	<!-- Execute Type REUSE (default) -->
+	<bean id="sqlSessionReuseTemplateAim" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryAim" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+	<!-- Execute Type BATCH (default) -->
+	<bean id="sqlSessionBatchTemplateAim" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryAim" />
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
+        <property name="basePackage" value="com.hnrisen.auditworks.mapper.aim.reuse"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionReuseTemplateAim"/>
+    </bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.hnrisen.auditworks.mapper.aim.batch"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionBatchTemplateAim"/>
+    </bean>
+    
+	
+	
+</beans>

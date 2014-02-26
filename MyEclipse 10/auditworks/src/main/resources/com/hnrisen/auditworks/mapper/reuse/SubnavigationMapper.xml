@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hnrisen.auditworks.mapper.reuse.SubnavigationMapper">
+
+	<cache />
+	<select id="selectOne" parameterType="Subnavigation" resultType="Subnavigation">
+		SELECT module_id,module_type_id,module_name,module_url,remark,disabled,order_id,module_tag,module_ico
+		FROM cap_module
+		WHERE module_id = #{module_id}
+	</select>
+	
+	<select id="selectAll" parameterType="Subnavigation" resultType="Subnavigation">
+		SELECT module_id,module_type_id,module_name,module_url,remark,disabled,order_id,module_tag,module_ico
+		FROM cap_module
+	</select>
+	
+	<select id="selectByScene" parameterType="Subnavigation" resultType="Subnavigation">
+		SELECT module_id,module_type_id,module_name,module_url,remark,disabled,order_id,module_tag,module_ico
+		FROM cap_module
+		WHERE module_type_id = #{module_type_id}
+	</select>
+
+	<insert id="insert" parameterType="Subnavigation">
+		INSERT INTO cap_module
+		  (module_id,module_type_id,module_name,module_url,remark,disabled,order_id,module_tag,module_ico)
+		VALUES
+		  (#{module_id}, #{module_type_id}, #{module_name}, #{module_url}, #{remark}, #{disabled}, #{order_id},#{module_tag}, #{module_ico})
+	</insert>
+
+	<update id="update" parameterType="Subnavigation">
+		UPDATE cap_module
+		SET module_id = #{module_id},
+			module_type_id = #{module_type_id},
+			module_name = #{module_name},
+			module_url = #{module_url},
+			disabled = #{disabled},
+			order_id = #{order_id},
+			module_tag = #{module_tag},
+			module_ico = #{module_ico}
+		WHERE module_id = #{module_id}
+	</update>
+
+	<delete id="delete" parameterType="Subnavigation">
+		DELETE FROM cap_module WHERE module_id = #{module_id}
+	</delete>
+
+</mapper>

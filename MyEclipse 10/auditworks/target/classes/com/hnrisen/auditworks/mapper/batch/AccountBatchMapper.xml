@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.hnrisen.auditworks.mapper.batch.AccountBatchMapper">
+
+	<insert id="insertAccounts" parameterType="Account">
+		INSERT INTO account
+		(userid, email, name) VALUES (#{userid}, #{email}, #{name})
+	</insert>
+
+	<select id="getAccountList" resultType="Account">
+		SELECT userid, email,
+		name
+		FROM account
+	</select>
+</mapper>

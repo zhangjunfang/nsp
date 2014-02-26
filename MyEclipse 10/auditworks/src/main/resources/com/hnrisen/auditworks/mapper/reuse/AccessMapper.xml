@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hnrisen.auditworks.mapper.reuse.AccessMapper">
+
+	<cache />
+	<select id="selectOne" parameterType="Access" resultType="Access">
+		SELECT id, segment, segtype, table_name as tableName, keys, connection, title
+		FROM da_access
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectAll" parameterType="Access" resultType="Access">
+		SELECT id, segment, segtype, table_name as tableName, keys, connection, title
+		FROM da_access
+	</select>
+
+	<insert id="insert" parameterType="Access">
+		INSERT INTO da_access
+		  (id, segment, segtype, table_name, keys, connection, title)
+		VALUES
+		  (#{id}, #{segment}, #{segtype}, #{tableName}, #{keys}, #{connection}, #{title})
+	</insert>
+
+	<update id="update" parameterType="Access">
+		UPDATE da_access
+		SET id = #{id},
+			segment = #{segment},
+			segtype = #{segtype},
+			table_name = #{tableName},
+			keys = #{keys},
+			connection = #{connection},
+			title = #{title}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="Access">
+		DELETE FROM da_access WHERE id = #{id}
+	</delete>
+
+</mapper>

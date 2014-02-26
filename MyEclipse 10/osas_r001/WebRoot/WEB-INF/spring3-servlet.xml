@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation=" 
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+          http://www.springframework.org/schema/util 
+          http://www.springframework.org/schema/util/spring-util-3.1.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+          http://www.springframework.org/schema/aop 
+          http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">     
+	<!-- 加载全局的 jsr303 验证注解 -->
+	<!-- 存放在 classpath下JSR-303验证 注解被发现并且自动识别 -->
+	<mvc:annotation-driven />
+	<!-- 如果 过滤资源不是*结尾的资源，就不需要如下配置 -->
+	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.1.xsd -->
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/html/**" location="/html/" />
+
+	<!-- 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+	<context:component-scan base-package="com.hnrisen.osas">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射，添加拦截器，类级别的处理器映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<!-- Handler mappings -->
+		<!-- In previous versions of Spring, users were required to define HandlerMappings 
+			in the web application context to map incoming web requests to appropriate 
+			handlers. With the introduction of Spring 2.5, the DispatcherServlet enables 
+			the DefaultAnnotationHandlerMapping, which looks for @RequestMapping annotations 
+			on @Controllers. Typically, you do not need to override this default mapping, 
+			unless you need to override he default property values. These properties 
+			are: interceptors List of interceptors to use. HandlerInterceptors are discussed 
+			in Section 15.4.1, “Intercepting requests - the HandlerInterceptor interface”. 
+			defaultHandler Default handler to use, when this handler mapping does not 
+			result in a matching handler. order Based on the value of the order property 
+			(see the org.springframework.core.Ordered interface), Spring sorts all handler 
+			mappings available in the context and applies the first matching handler. 
+			alwaysUseFullPath If true , Spring uses the full path within the current 
+			servlet context to find an appropriate handler. If false (the default), the 
+			path within the current servlet mapping is used. For example, if a servlet 
+			is mapped using /testing/* and the alwaysUseFullPath property is set to true, 
+			/testing/viewPage.html is used, whereas if the property is set to false, 
+			/viewPage.html is used. urlDecode Defaults to true, as of Spring 2.5. If 
+			you prefer to compare encoded paths, set this flag to false. However, the 
+			HttpServletRequest always exposes the servlet path in decoded form. Be aware 
+			that the servlet path will not match when compared with encoded paths. lazyInitHandlers 
+			Allows lazy initialization of singleton handlers (prototype handlers are 
+			always lazy-initialized). The default value is false. [Note] Note The alwaysUseFullPath, 
+			urlDecode, and lazyInitHandlers properties are only available to subclasses 
+			of org.springframework.web.servlet.handler.AbstractUrlHandlerMapping. -->
+		<!-- Note The alwaysUseFullPath, urlDecode, and lazyInitHandlers properties 
+			are only available to subclasses of org.springframework.web.servlet.handler.AbstractUrlHandlerMapping. -->
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<!-- Annotating controller methods with @InitBinder allows you to configure 
+			web data binding directly within your controller class. @InitBinder identifies 
+			methods that initialize the WebDataBinder that will be used to populate command 
+			and form object arguments of annotated handler methods. Such init-binder 
+			methods support all arguments that @RequestMapping supports, except for command/form 
+			objects and corresponding validation result objects. Init-binder methods 
+			must not have a return value. Thus, they are usually declared as void. Typical 
+			arguments include WebDataBinder in combination with WebRequest or java.util.Locale, 
+			allowing code to register context-specific editors. -->
+		<!-- To externalize data binding initialization, you can provide a custom 
+			implementation of the WebBindingInitializer interface, which you then enable 
+			by supplying a custom bean configuration for an AnnotationMethodHandlerAdapter, 
+			thus overriding the default configuration. -->
+
+	</bean>
+	<!-- AbstractCachingViewResolver :Abstract view resolver that caches views. 
+		Often views need preparation before they can be used; extending this view 
+		resolver provides caching. XmlViewResolver : Implementation of ViewResolver 
+		that accepts a configuration file written in XML with the same DTD as Spring's 
+		XML bean factories. The default configuration file is /WEB-INF/views.xml. 
+		ResourceBundleViewResolver: Implementation of ViewResolver that uses bean 
+		definitions in a ResourceBundle, specified by the bundle base name. Typically 
+		you define the bundle in a properties file, located in the classpath. The 
+		default file name is views.properties. UrlBasedViewResolver: Simple implementation 
+		of the ViewResolver interface that effects the direct resolution of logical 
+		view names to URLs, without an explicit mapping definition. This is appropriate 
+		if your logical names match the names of your view resources in a straightforward 
+		manner, without the need for arbitrary mappings. InternalResourceViewResolver 
+		: Convenient subclass of UrlBasedViewResolver that supports InternalResourceView 
+		(in effect, Servlets and JSPs) and subclasses such as JstlView and TilesView. 
+		You can specify the view class for all views generated by this resolver by 
+		using setViewClass(..). See the Javadocs for the UrlBasedViewResolver class 
+		for details. VelocityViewResolver / FreeMarkerViewResolver： Convenient subclass 
+		of UrlBasedViewResolver that supports VelocityView (in effect, Velocity templates) 
+		or FreeMarkerView ,respectively, and custom subclasses of them. ContentNegotiatingViewResolver 
+		Implementation of the ViewResolver interface that resolves a view based on 
+		the request file name or Accept header. See Section 15.5.4, “ContentNegotiatingViewResolver”. -->
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 InternalResourceViewResolver默认的就是JstlView所以这里就不用配置viewClass了 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- When you combine different view technologies in a web application, 
+		you can use the ResourceBundleViewResolver -->
+	<!--<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"> 
+		<property name="basename" value="views"/> <property name="defaultParentView" 
+		value="parentView"/> </bean> -->
+	<!-- Subclasses of AbstractCachingViewResolver cache view instances that 
+		they resolve. Caching improves performance of certain view technologies. 
+		It's possible to turn off the cache by setting the cache property to false. 
+		Furthermore, if you must refresh a certain view at runtime (for example when 
+		a Velocity template is modified), you can use the removeFromCache(String 
+		viewName, Locale loc) method -->
+	<!-- The ResourceBundleViewResolver inspects the ResourceBundle identified 
+		by the basename, and for each view it is supposed to resolve, it uses the 
+		value of the property [viewname].(class) as the view class and the value 
+		of the property [viewname].url as the view url. Examples can be found in 
+		the next chapter which covers view technologies. As you can see, you can 
+		identify a parent view, from which all views in the properties file “extend”. 
+		This way you can specify a default view class -->
+
+</beans> 

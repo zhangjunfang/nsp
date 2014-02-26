@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hnrisen.auditworks.mapper.reuse.MasterMapper">
+
+	<cache />
+	<select id="selectOne" parameterType="Master" resultType="Master">
+		SELECT id, segname, field_name as fieldName, alias, title 
+		FROM da_master
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectAll" parameterType="Master" resultType="Master">
+		SELECT id, segname, field_name as fieldName, alias, title 
+		FROM da_master
+	</select>
+	
+	<select id="getMastersBySegname" parameterType="String" resultType="Master">
+		SELECT id, segname, field_name as fieldName, alias, title 
+		FROM da_master
+		WHERE segname = #{value}
+	</select>
+	
+	<insert id="insert" parameterType="Master">
+		INSERT INTO da_master
+		  (id, segname, field_name, alias, title)
+		VALUES
+		  (#{id}, #{segname}, #{fieldName}, #{alias}, #{title})
+	</insert>
+
+	<update id="update" parameterType="Master">
+		UPDATE da_master SET 
+		id = #{id},
+	    segname = #{segname},
+	    field_name = #{field_name},
+	    alias = #{alias},
+	    title = #{title}
+		WHERE id = #{id};
+	</update>
+
+	<delete id="delete" parameterType="Master">
+		DELETE FROM da_master WHERE id = #{id}
+	</delete>
+
+</mapper>

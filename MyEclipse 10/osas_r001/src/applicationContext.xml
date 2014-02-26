@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation=" 
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+          http://www.springframework.org/schema/util 
+          http://www.springframework.org/schema/util/spring-util-3.1.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+          http://www.springframework.org/schema/aop 
+          http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	<context:component-scan base-package="com.hnrisen.auditworks">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<!-- <context:component-scan/> 
+		           扫描指定的包中的类上的注解，常用的注解有： @Controller 声明Action组件 
+			@Service 声明Service组件 @Service("myMovieLister") @Repository 声明Dao组件 @Component 
+			泛指组件, 当不好归类时. @RequestMapping("/menu") 请求映射 @Resource 用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") 
+			@Autowired 用于注入，(srping提供的) 默认按类型装配 @Transactional( rollbackFor={Exception.class}) 
+			事务管理 @ResponseBody @Scope("prototype") 设定bean的作用域 <mvc:annotation-driven 
+			/> 是一种简写形式，完全可以手动配置替代这种简写形式，简写形式可以让初学都快速应用默认配置方案。<mvc:annotation-driven /> 
+			会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,是spring 
+			MVC为@Controllers分发请求所必须的。 并提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。 -->
+	</context:component-scan>
+	<context:annotation-config />
+
+	<!-- JOTM实例 -->
+	<bean id="jotm" class="com.hnrisen.auditworks.jotm.util.JotmFactoryBean" />
+	<!-- JTA事务管理器 -->
+	<bean id="myJtaManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager"
+		p:userTransaction-ref="jotm" />
+	<!-- 数据源A -->
+	<bean id="dataSourceA" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource"
+		destroy-method="shutdown">
+		<property name="dataSource">
+			<bean class="org.enhydra.jdbc.standard.StandardXADataSource"
+				destroy-method="shutdown">
+				<property name="transactionManager" ref="jotm" />
+				<property name="driverName" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@192.168.0.10:1521:LYBPDS" />
+			</bean>
+		</property>
+		<property name="user" value="cap_app_user" />
+		<property name="password" value="risen" />
+	</bean>
+	<!-- 数据源B -->
+	<bean id="dataSourceB" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource"
+		destroy-method="shutdown">
+		<property name="dataSource">
+			<bean class="org.enhydra.jdbc.standard.StandardXADataSource"
+				destroy-method="shutdown">
+				<property name="transactionManager" ref="jotm" />
+				<property name="driverName" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@192.168.0.10:1521:LYBPDS" />
+			</bean>
+		</property>
+		<property name="user" value="cap_app_user" />
+		<property name="password" value="risen" />
+	</bean>
+	<!-- 事务切面配置 -->
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* *com.hnrisen.auditworks.*.service.impl..*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice" />
+	</aop:config>
+	<!-- 通知配置 -->
+	<tx:advice id="txAdvice" transaction-manager="myJtaManager">
+		<tx:attributes>
+			<tx:method name="delete*" rollback-for="Exception" />
+			<tx:method name="save*" rollback-for="Exception" />
+			<tx:method name="update*" rollback-for="Exception" />
+			<tx:method name="*" read-only="true" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!--根据dataSourceA和sql-map-config_A.xml创建一个SqlSessionFactoryBean -->
+	<bean id="SqlSessionFactoryBeanA" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceA" />
+		<property name="configLocation" value="classpath:sql-map-config_A.xml" />
+	</bean>
+	<!--根据dataSourceB和sql-map-config_B.xml创建一个SqlSessionFactoryBean -->
+	<bean id="SqlSessionFactoryBeanB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceB" />
+		<property name="configLocation" value="classpath:sql-map-config_B.xml" />
+	</bean>
+	<!-- 方案一 -->
+	<!--根据SqlSessionFactoryBean创建一个SqlSessionTemplate -->
+	<!-- <bean id="sqlSessionReuseTemplateA" class="org.mybatis.spring.SqlSessionTemplate"> 
+		<constructor-arg index="0" ref="SqlSessionFactoryBeanA" /> <constructor-arg 
+		index="1" value="REUSE" /> </bean> <bean id="sqlSessionBatchTemplateB" class="org.mybatis.spring.SqlSessionTemplate"> 
+		<constructor-arg index="0" ref="SqlSessionFactoryBeanB" /> <constructor-arg 
+		index="1" value="BATCH" /> </bean> <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
+		<property name="basePackage" value="com.hnrisen.auditworks.jtom.domain.mapper.A" 
+		/> <property name="sqlSessionTemplate" ref="sqlSessionReuseTemplateA"/> </bean> 
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
+		name="basePackage" value="com.hnrisen.auditworks.jtom.domain.mapper.B" /> 
+		<property name="sqlSessionTemplate" ref="sqlSessionBatchTemplateB"/> </bean> -->
+	<!-- 方案二 -->
+	<!-- 自动扫描映射文件 -->
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" > <property 
+		name="basePackage" value="com.hnrisen.auditworks.mapper.jotm.A" /> <property 
+		name="sqlSessionFactoryBeanName" value="SqlSessionFactoryBeanA" /> </bean> 
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
+		name="basePackage" value="com.hnrisen.auditworks.mapper.jotm.B" /> <property 
+		name="sqlSessionFactoryBeanName" value="SqlSessionFactoryBeanB" /> </bean> -->
+	<!-- <property name="basePackage" value="com.hnrisen.auditworks.mapper.jotm.A" 
+		/> <property name="sqlSessionFactoryBeanName" value="SqlSessionFactoryBeanA" 
+		/> -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="com.hnrisen.auditworks.mapper.jotm.A"
+		p:sqlSessionFactoryBeanName="SqlSessionFactoryBeanA" />
+	<!-- <property name="basePackage" value="com.hnrisen.auditworks.mapper.jotm.B" 
+		/> <property name="sqlSessionFactoryBeanName" value="SqlSessionFactoryBeanB" 
+		/> -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="com.hnrisen.auditworks.mapper.jotm.B"
+		p:sqlSessionFactoryBeanName="SqlSessionFactoryBeanB" />
+
+
+</beans>
+	

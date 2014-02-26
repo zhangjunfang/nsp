@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.newcapec.bus.dao.sequence.SequenceDao">
+
+	<sql id="fields_name">
+		t.code, t.max_no, t.contentMes, t.customerUnitCode
+	</sql>
+
+	<sql id="tab_name">
+		BASE_SEQUENCE_NO t
+	</sql>
+
+	<sql id="where_sql">
+		<where>
+			<if test="s.code!=null and s.code!=''"> AND t.code = #{s.code} </if>
+			<if test="s.customerUnitCode!=null and s.customerUnitCode!=''"> AND t.customerUnitCode = #{s.customerUnitCode} </if>
+		</where>
+	</sql>
+
+
+	<sql id="page_sql_1">
+		SELECT * FROM (
+		SELECT t1.*, ROWNUM rn
+		FROM (
+	</sql>
+
+	<sql id="page_sql_2">
+		) t1
+		WHERE ROWNUM &lt;#{page.current}*#{page.pageSize}+1
+		)
+		WHERE
+		rn&gt;(#{page.current}-1)*#{page.pageSize}
+	</sql>
+
+
+
+	<select id="queryAll" resultType="net.newcapec.bus.service.bo.Sequence">
+		<include refid="page_sql_1" />
+		SELECT
+		<include refid="fields_name" />
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+		order by t.id desc
+		<include refid="page_sql_2" />
+	</select>
+
+	<select id="queryAllCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+	</select>
+
+	<select id="queryById" resultType="net.newcapec.bus.service.bo.Sequence">
+		SELECT
+		<include refid="fields_name" />
+		FROM
+		<include refid="tab_name" />
+		WHERE
+		t.code = #{s.code} AND t.customerUnitCode =
+		#{s.customerUnitCode}
+	</select>
+
+
+
+	<insert id="insert" useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tab_name" />
+		(code, max_no, contentMes, customerUnitCode)
+		VALUES
+		(#{p.code},
+		#{p.max_no}, #{p.contentMes}, #{p.customerUnitCode})
+	</insert>
+
+
+	<update id="update">
+		UPDATE
+		<include refid="tab_name" />
+		<set>
+			<if test="p.max_no!=null and p.max_no>0"> t.max_no = #{p.max_no} </if>
+			<if test="p.contentMes!=null and p.contentMes!=''"> t.contentMes = #{p.contentMes} </if>
+		</set>
+		<include refid="where_sql" />
+	</update>
+
+	<delete id="delete">
+		DELETE
+		FROM
+		<include refid="tab_name" />
+		<include refid="where_sql" />
+	</delete>
+
+</mapper>
+
+
+

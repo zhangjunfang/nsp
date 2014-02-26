@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hnrisen.auditworks.mapper.reuse.AccountMapper">
+
+	<cache />
+	<select id="selectOne" parameterType="Account"
+		resultType="Account">
+		SELECT userid, email, name
+		FROM account
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="selectAll" parameterType="Account" resultType="Account">
+		SELECT userid, email, name
+		FROM account
+	</select>
+
+	<insert id="insert" parameterType="Account">
+		INSERT INTO account
+		(userid, email, name)
+		VALUES
+		(#{userid}, #{email}, #{name})
+	</insert>
+
+	<update id="update" parameterType="Account">
+		UPDATE account SET
+		email = #{email},
+		name = #{name}
+		WHERE userid = #{userid}
+	</update>
+
+	<delete id="delete" parameterType="Account">
+		DELETE FROM account WHERE userid = #{userid}
+	</delete>
+
+</mapper>
