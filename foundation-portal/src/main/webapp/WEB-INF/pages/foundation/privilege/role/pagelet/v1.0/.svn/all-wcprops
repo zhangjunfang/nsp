@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0
+END
+role_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/role_list.html
+END
+departmentdAuthorizeUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/departmentdAuthorizeUI.html
+END
+role_list_grid.html
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/role_list_grid.html
+END
+updateRoleUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/updateRoleUI.html
+END
+distributionResourceUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/distributionResourceUI.html
+END
+addRoleUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/role/pagelet/v1.0/addRoleUI.html
+END

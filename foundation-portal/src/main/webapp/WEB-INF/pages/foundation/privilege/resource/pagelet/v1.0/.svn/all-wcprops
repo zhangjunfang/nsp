@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0
+END
+addResourceUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0/addResourceUI.html
+END
+resource_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0/resource_list.html
+END
+resource_tree.html
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0/resource_tree.html
+END
+resource_list_grid.html
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0/resource_list_grid.html
+END
+editResourceUI.html
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/examples/!svn/ver/73/Code/DevExample/trunk/foundation-portal/src/main/webapp/WEB-INF/pages/foundation/privilege/resource/pagelet/v1.0/editResourceUI.html
+END
