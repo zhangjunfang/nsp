@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/spring-conf
+END
+applicationContext-dataSource.xml
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/spring-conf/applicationContext-dataSource.xml
+END
+application-mvc-portal.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/spring-conf/application-mvc-portal.xml
+END
+application-mvc-base.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/spring-conf/application-mvc-base.xml
+END
+dataAccessContext-hibernate.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/spring-conf/dataAccessContext-hibernate.xml
+END

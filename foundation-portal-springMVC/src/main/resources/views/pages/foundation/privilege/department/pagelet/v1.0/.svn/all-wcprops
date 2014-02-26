@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0
+END
+department_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0/department_list.html
+END
+department_tree.html
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0/department_tree.html
+END
+update_department_ui.html
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0/update_department_ui.html
+END
+department_list_grid.html
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0/department_list_grid.html
+END
+add_department_ui.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/views/pages/foundation/privilege/department/pagelet/v1.0/add_department_ui.html
+END

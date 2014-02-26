@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/cn/newcapec/foundation/portal/restlet-conf
+END
+portalContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/cn/newcapec/foundation/portal/restlet-conf/portalContext.xml
+END
+restletUrlMapping.properties
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/examples/!svn/ver/75/Code/DevExample/trunk/V1.1/foundation-portal/src/main/resources/config/cn/newcapec/foundation/portal/restlet-conf/restletUrlMapping.properties
+END
